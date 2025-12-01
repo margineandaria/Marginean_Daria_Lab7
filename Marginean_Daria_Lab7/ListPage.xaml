@@ -1,23 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Marginean_Daria_Lab7"
              x:Class="Marginean_Daria_Lab7.ListPage"
              Title="ListPage">
-<StackLayout Margin="20">
-    <Editor Placeholder="Enter the description of the shopping list"
-            Text="{Binding Description}"
-            HeightRequest="100" />
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Button Text="Save"
-                Clicked="OnSaveButtonClicked" />
-        <Button Grid.Column="1"
-                Text="Delete"
-                Clicked="OnDeleteButtonClicked"/>
+
+    <Grid Margin="20" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> <RowDefinition Height="*" />    <RowDefinition Height="Auto" /> <RowDefinition Height="Auto" /> </Grid.RowDefinitions>
+
+        <Editor Grid.Row="0"
+                Placeholder="Enter the description of the shopping list"
+                Text="{Binding Description}"
+                HeightRequest="60">
+            <Editor.Behaviors>
+                <local:ValidationBehaviour />
+            </Editor.Behaviors>
+        </Editor>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="10">
+            <Button Grid.Column="0" 
+                    Text="Save" 
+                    Clicked="OnSaveButtonClicked" />
+            <Button Grid.Column="1" 
+                    Text="Delete" 
+                    Clicked="OnDeleteButtonClicked"/>
+        </Grid>
+
+        <ListView Grid.Row="2" 
+                  x:Name="listView"
+                  Margin="0, 10, 0, 10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Detail="{Binding Description}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="3" 
+                Text="Delete Item" 
+                BackgroundColor="DarkRed"
+                TextColor="White"
+                Margin="0,0,0,10"
+                Clicked="OnDeleteItemButtonClicked"/>
+
+        <Button Grid.Row="4" 
+                Text="Add/Choose Item to buy" 
+                Clicked="OnChooseButtonClicked"/>
+        
     </Grid>
-</StackLayout>
 </ContentPage>
